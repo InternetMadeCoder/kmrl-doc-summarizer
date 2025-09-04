@@ -9,7 +9,7 @@ export default function Navbar() {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center space-x-8">
+          {/* <div className="flex items-center space-x-8">
             <a
               href="#"
               className="text-gray-700 hover:text-[#14b1b2] transition-colors duration-200"
@@ -28,7 +28,7 @@ export default function Navbar() {
             >
               Contact
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>
