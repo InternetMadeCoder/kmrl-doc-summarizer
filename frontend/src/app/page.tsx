@@ -1,66 +1,67 @@
-"use client";
+"use client"
 
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
-import FileUpload from '../components/FileUpload';
-import LoadingScreen from '../components/LoadingScreen';
-import SummaryScreen from '../components/SummaryScreen';
+import Sidebar from '../components/Sidebar';
+import Dashboard from '../components/Dashboard';
+import NewComplaint from '../components/NewComplaint';
+import InProgress from '../components/InProgress';
+import Resolved from '../components/Resolved';
+import Analytics from '../components/Analytics';
 
-type AppState = 'upload' | 'loading' | 'summary';
+type AppSection = 'dashboard' | 'new-complaint' | 'in-progress' | 'resolved' | 'analytics';
 
 export default function App() {
-  const [currentState, setCurrentState] = useState<AppState>('upload');
-
-  const handleFileUpload = (file: File) => {
-    setCurrentState('loading');
-    
-    // Simulate processing time
-    setTimeout(() => {
-      setCurrentState('summary');
-    }, 3000);
-  };
-
-  const handleUploadAnother = () => {
-    setCurrentState('upload');
-  };
+  const [activeSection, setActiveSection] = useState<AppSection>('dashboard');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const renderContent = () => {
-    switch (currentState) {
-      case 'upload':
-        return (
-          <div className="flex items-center justify-center min-h-screen p-6 pt-28">
-            <div className="w-full max-w-2xl">
-              {/* Header */}
-              <div className="text-center mb-12">
-                <h1 className="text-3xl mb-3 text-gray-900">
-                  PDF Summarizer
-                </h1>
-                <p className="text-gray-600">
-                  Upload your PDF document and get an AI-powered summary instantly
-                </p>
-              </div>
-
-              {/* File Upload Component */}
-              <FileUpload onUpload={handleFileUpload} />
-            </div>
-          </div>
-        );
-      
-      case 'loading':
-        return <LoadingScreen />;
-      
-      case 'summary':
-        return <SummaryScreen onUploadAnother={handleUploadAnother} />;
-      
+    switch (activeSection) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'new-complaint':
+        return <NewComplaint />;
+      case 'in-progress':
+        return <InProgress />;
+      case 'resolved':
+        return <Resolved />;
+      case 'analytics':
+        return <Analytics />;
       default:
-        return null;
+        return <Dashboard />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      {renderContent()}
+    <div className="min-h-screen bg-gray-50">
+      <Navbar 
+        onMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        isMobileMenuOpen={isMobileMenuOpen}
+      />
+      <div className="flex pt-16 md:pt-20">
+        <Sidebar 
+          activeSection={activeSection} 
+          onSectionChange={(section) => {
+            setActiveSection(section as AppSection);
+            setIsMobileMenuOpen(false); // Close mobile menu when selecting item
+          }}
+          isMobileMenuOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+        <main className="flex-1 min-h-screen w-full">
+          <div className="p-4 md:p-6">
+            {renderContent()}
+          </div>
+        </main>
+      </div>
+      
+      {/* Mobile overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </div>
   );
 }
