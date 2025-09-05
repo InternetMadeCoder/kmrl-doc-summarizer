@@ -1,4 +1,12 @@
-export default function Navbar() {
+interface NavbarProps {
+  onMenuToggle: () => void;
+  isMobileMenuOpen: boolean;
+}
+
+export default function Navbar({
+  onMenuToggle,
+  isMobileMenuOpen,
+}: NavbarProps) {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 py-2">

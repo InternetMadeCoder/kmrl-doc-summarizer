@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
-import { Upload, FileText } from 'lucide-react';
-import { Button } from './ui/button';
+import { useState, useRef } from "react";
+import { Upload, FileText } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface FileUploadProps {
   onUpload: (file: File) => void;
@@ -25,10 +25,10 @@ export default function FileUpload({ onUpload }: FileUploadProps) {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const droppedFile = e.dataTransfer.files[0];
-      if (droppedFile.type === 'application/pdf') {
+      if (droppedFile.type === "application/pdf") {
         setFile(droppedFile);
       }
     }
@@ -56,7 +56,7 @@ export default function FileUpload({ onUpload }: FileUploadProps) {
       {/* Upload Box */}
       <div
         className={`relative border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-200 bg-white shadow-sm ${
-          dragActive ? 'border-[#14b1b2] bg-[#14b1b2]/5' : 'border-[#14b1b2]'
+          dragActive ? "border-[#14b1b2] bg-[#14b1b2]/5" : "border-[#14b1b2]"
         } hover:border-[#14b1b2] hover:bg-[#14b1b2]/5`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -71,7 +71,7 @@ export default function FileUpload({ onUpload }: FileUploadProps) {
           onChange={handleChange}
           className="hidden"
         />
-        
+
         <div className="space-y-6">
           {/* Upload Icon */}
           <div className="flex justify-center">
@@ -79,7 +79,7 @@ export default function FileUpload({ onUpload }: FileUploadProps) {
               <Upload className="h-12 w-12 text-[#14b1b2]" />
             </div>
           </div>
-          
+
           {/* Upload Text */}
           <div className="space-y-2">
             {file ? (
@@ -93,7 +93,7 @@ export default function FileUpload({ onUpload }: FileUploadProps) {
                   Drag & drop your PDF here, or click to upload
                 </p>
                 <p className="text-sm text-gray-500">
-                  We'll generate an AI-powered summary for you
+                  We&apos;ll generate an AI-powered summary for you
                 </p>
               </>
             )}
@@ -102,7 +102,7 @@ export default function FileUpload({ onUpload }: FileUploadProps) {
       </div>
 
       {/* Upload Button */}
-      <Button 
+      <Button
         onClick={handleUpload}
         disabled={!file}
         className="w-full h-12 bg-[#14b1b2] hover:bg-[#14b1b2]/90 text-white rounded-xl transition-colors duration-200"
