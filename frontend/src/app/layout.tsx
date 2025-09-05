@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KMRL Doc Summarizer",
+  title: "IntelliDocs",
   description: "Team Bhole Chature",
 };
 
